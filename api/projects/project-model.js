@@ -20,7 +20,14 @@ function addTask(project_id, task) {
 }
 
 function getTasks(id) {
-  return db("tasks")
-    .select("*")
-    .where("project_id", id);
+  return db("projects")
+    .join("tasks")
+    .select(
+      "projects.project_name",
+      "projects.description as project_description",
+      "tasks.description",
+      "tasks.notes",
+      "tasks.complete"
+    )
+    .where("projects.id", id);
 }
